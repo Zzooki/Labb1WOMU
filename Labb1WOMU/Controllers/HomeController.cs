@@ -13,16 +13,15 @@ namespace Labb1WOMU.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Products()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "Här kanske vi kan ha våra produkter";
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Kontakt information:";
 
             return View();
         }
