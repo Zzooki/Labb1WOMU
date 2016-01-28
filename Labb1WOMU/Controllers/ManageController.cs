@@ -12,10 +12,7 @@ namespace Labb1WOMU.Controllers
 {
     public class ManageController : Controller
     {
-        public ActionResult Betala()
-        {
-            return View();
-        }
+        
     }
     
 }

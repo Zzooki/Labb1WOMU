@@ -12,5 +12,18 @@ using Labb1WOMU.Models;
 
 namespace Labb1WOMU.Controllers
 {
-   
+    public class VarukorgController : Controller
+    {
+        public ActionResult Betala()
+        {
+            return View();
+        }
+        public ActionResult Varor()
+        {
+            return View();
+        }
+    }
+
+    
+
 }
