@@ -1,0 +1,66 @@
+﻿@model Labb1WOMU.Models.Kund
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Kund</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Förnamn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Efternamn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Postadress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Postadress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Epost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Epost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelefonNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelefonNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostNrOrt.Ort)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostNrOrt.Ort)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.KundID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

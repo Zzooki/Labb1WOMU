@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Labb1WOMU.Models.Kund>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Efternamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postadress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Epost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TelefonNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostNrOrt.Ort)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Förnamn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Efternamn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postadress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Epost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelefonNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostNrOrt.Ort)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.KundID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.KundID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.KundID })
+        </td>
+    </tr>
+}
+
+</table>
