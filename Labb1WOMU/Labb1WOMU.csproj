@@ -307,6 +307,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Varukorg\Betala.cshtml" />
     <Content Include="Views\Varukorg\Varor.cshtml" />
+    <Content Include="Views\Shared\_KundkorgLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
