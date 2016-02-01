@@ -13,10 +13,10 @@ namespace Labb1WOMU.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBTEntities : DbContext
+    public partial class DBTEntities1 : DbContext
     {
-        public DBTEntities()
-            : base("name=DBTEntities")
+        public DBTEntities1()
+            : base("name=DBTEntities1")
         {
         }
     
@@ -25,9 +25,9 @@ namespace Labb1WOMU.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Artikel> Artikels { get; set; }
-        public virtual DbSet<Kund> Kunds { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<Orderrad> Orderrads { get; set; }
+        public virtual DbSet<Artikel> Artikel { get; set; }
+        public virtual DbSet<Kund> Kund { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<Orderrad> Orderrad { get; set; }
     }
 }

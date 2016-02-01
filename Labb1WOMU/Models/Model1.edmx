@@ -4,26 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DBTModelStoreContainer">
-    <EntitySet Name="Artikels" EntityType="DBTModel.Store.Artikels" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Kunds" EntityType="DBTModel.Store.Kunds" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Orders" EntityType="DBTModel.Store.Orders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Orderrads" EntityType="DBTModel.Store.Orderrads" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_ArtikelID" Association="DBTModel.Store.FK_ArtikelID">
-      <End Role="Artikel" EntitySet="Artikels" />
-      <End Role="Orderrad" EntitySet="Orderrads" />
-    </AssociationSet>
-    <AssociationSet Name="FK_KundID" Association="DBTModel.Store.FK_KundID">
-      <End Role="Kund" EntitySet="Kunds" />
-      <End Role="Order" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderID" Association="DBTModel.Store.FK_OrderID">
-      <End Role="Order" EntitySet="Orders" />
-      <End Role="Orderrad" EntitySet="Orderrads" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Artikels">
+    <Schema Namespace="DBTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikel">
           <Key>
             <PropertyRef Name="ArtikelID" />
           </Key>
@@ -34,28 +16,27 @@
           <Property Name="Pris" Type="int" Nullable="false" />
           <Property Name="Aktuell" Type="int" Nullable="false" />
         </EntityType>
-  <EntityType Name="Kunds">
+        <EntityType Name="Kund">
           <Key>
             <PropertyRef Name="KundID" />
           </Key>
           <Property Name="KundID" Type="int" Nullable="false" />
-    <Property Name="Förnamn" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Efternamn" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Postadress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Förnamn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Efternamn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Postadress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PostNr" Type="int" Nullable="false" />
-    <Property Name="Epost" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Epost" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="TelefonNr" Type="int" Nullable="false" />
-    <Property Name="PostOrt" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Ort" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-  <EntityType Name="Orders">
+        <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="KundID" Type="int" Nullable="false" />
         </EntityType>
-  <EntityType Name="Orderrads">
+        <EntityType Name="Orderrad">
           <Key>
             <PropertyRef Name="OrderID" />
             <PropertyRef Name="ArtikelID" />
@@ -65,8 +46,8 @@
           <Property Name="Antal" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ArtikelID">
-    <End Role="Artikel" Type="DBTModel.Store.Artikels" Multiplicity="1" />
-    <End Role="Orderrad" Type="DBTModel.Store.Orderrads" Multiplicity="*" />
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="1" />
+          <End Role="Orderrad" Type="Self.Orderrad" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Artikel">
               <PropertyRef Name="ArtikelID" />
@@ -77,8 +58,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_KundID">
-    <End Role="Kund" Type="DBTModel.Store.Kunds" Multiplicity="1" />
-    <End Role="Order" Type="DBTModel.Store.Orders" Multiplicity="*" />
+          <End Role="Kund" Type="Self.Kund" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kund">
               <PropertyRef Name="KundID" />
@@ -89,8 +70,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderID">
-    <End Role="Order" Type="DBTModel.Store.Orders" Multiplicity="1" />
-    <End Role="Orderrad" Type="DBTModel.Store.Orderrads" Multiplicity="*" />
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Orderrad" Type="Self.Orderrad" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -100,7 +81,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-</Schema></edmx:StorageModels>
+        <EntityContainer Name="DBTModelStoreContainer">
+          <EntitySet Name="Artikel" EntityType="Self.Artikel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kund" EntityType="Self.Kund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orderrad" EntityType="Self.Orderrad" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ArtikelID" Association="Self.FK_ArtikelID">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KundID" Association="Self.FK_KundID">
+            <End Role="Kund" EntitySet="Kund" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -127,9 +126,8 @@
           <Property Name="PostNr" Type="Int32" Nullable="false" />
           <Property Name="Epost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TelefonNr" Type="Int32" Nullable="false" />
+          <Property Name="Ort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_KundID" FromRole="Kund" ToRole="Order" />
-          <Property Name="PostOrt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Ort" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -187,22 +185,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBTEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Artikels" EntityType="Self.Artikel" />
-          <EntitySet Name="Kunds" EntityType="Self.Kund" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="Orderrads" EntityType="Self.Orderrad" />
+        <EntityContainer Name="DBTEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artikel" EntityType="Self.Artikel" />
+          <EntitySet Name="Kund" EntityType="Self.Kund" />
+          <EntitySet Name="Order" EntityType="Self.Order" />
+          <EntitySet Name="Orderrad" EntityType="Self.Orderrad" />
           <AssociationSet Name="FK_ArtikelID" Association="Self.FK_ArtikelID">
-            <End Role="Artikel" EntitySet="Artikels" />
-            <End Role="Orderrad" EntitySet="Orderrads" />
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
           </AssociationSet>
           <AssociationSet Name="FK_KundID" Association="Self.FK_KundID">
-            <End Role="Kund" EntitySet="Kunds" />
-            <End Role="Order" EntitySet="Orders" />
+            <End Role="Kund" EntitySet="Kund" />
+            <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="Orderrad" EntitySet="Orderrads" />
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -210,10 +208,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DBTModelStoreContainer" CdmEntityContainer="DBTEntities">
-          <EntitySetMapping Name="Artikels">
-      <EntityTypeMapping TypeName="IsTypeOf(DBTModel.Artikel)">
-        <MappingFragment StoreEntitySet="Artikels">
+        <EntityContainerMapping StorageEntityContainer="DBTModelStoreContainer" CdmEntityContainer="DBTEntities1">
+          <EntitySetMapping Name="Artikel">
+            <EntityTypeMapping TypeName="DBTModel.Artikel">
+              <MappingFragment StoreEntitySet="Artikel">
                 <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
                 <ScalarProperty Name="ArtikelNamn" ColumnName="ArtikelNamn" />
                 <ScalarProperty Name="Beskrivning" ColumnName="Beskrivning" />
@@ -223,9 +221,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Kunds">
-      <EntityTypeMapping TypeName="IsTypeOf(DBTModel.Kund)">
-        <MappingFragment StoreEntitySet="Kunds">
+          <EntitySetMapping Name="Kund">
+            <EntityTypeMapping TypeName="DBTModel.Kund">
+              <MappingFragment StoreEntitySet="Kund">
                 <ScalarProperty Name="KundID" ColumnName="KundID" />
                 <ScalarProperty Name="Förnamn" ColumnName="Förnamn" />
                 <ScalarProperty Name="Efternamn" ColumnName="Efternamn" />
@@ -233,22 +231,21 @@
                 <ScalarProperty Name="PostNr" ColumnName="PostNr" />
                 <ScalarProperty Name="Epost" ColumnName="Epost" />
                 <ScalarProperty Name="TelefonNr" ColumnName="TelefonNr" />
-          <ScalarProperty Name="PostOrt" ColumnName="PostOrt" />
-          <ScalarProperty Name="Ort" ColumnName="Ort" />
+                <ScalarProperty Name="Ort" ColumnName="Ort" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="IsTypeOf(DBTModel.Order)">
-        <MappingFragment StoreEntitySet="Orders">
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="DBTModel.Order">
+              <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="KundID" ColumnName="KundID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Orderrads">
-      <EntityTypeMapping TypeName="IsTypeOf(DBTModel.Orderrad)">
-        <MappingFragment StoreEntitySet="Orderrads">
+          <EntitySetMapping Name="Orderrad">
+            <EntityTypeMapping TypeName="DBTModel.Orderrad">
+              <MappingFragment StoreEntitySet="Orderrad">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
                 <ScalarProperty Name="Antal" ColumnName="Antal" />
@@ -256,7 +253,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -268,9 +266,9 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

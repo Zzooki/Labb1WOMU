@@ -12,13 +12,13 @@ namespace Labb1WOMU.Controllers
 {
     public class OrderController : Controller
     {
-        private DBTEntities db = new DBTEntities();
+        private DBTEntities1 db = new DBTEntities1();
 
         // GET: Order
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Kund);
-            return View(orders.ToList());
+            var order = db.Order.Include(o => o.Kund);
+            return View(order.ToList());
         }
 
         // GET: Order/Details/5
@@ -28,7 +28,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = db.Order.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -39,7 +39,7 @@ namespace Labb1WOMU.Controllers
         // GET: Order/Create
         public ActionResult Create()
         {
-            ViewBag.KundID = new SelectList(db.Kunds, "KundID", "Förnamn");
+            ViewBag.KundID = new SelectList(db.Kund, "KundID", "Förnamn");
             return View();
         }
 
@@ -52,12 +52,12 @@ namespace Labb1WOMU.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
+                db.Order.Add(order);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.KundID = new SelectList(db.Kunds, "KundID", "Förnamn", order.KundID);
+            ViewBag.KundID = new SelectList(db.Kund, "KundID", "Förnamn", order.KundID);
             return View(order);
         }
 
@@ -68,12 +68,12 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = db.Order.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.KundID = new SelectList(db.Kunds, "KundID", "Förnamn", order.KundID);
+            ViewBag.KundID = new SelectList(db.Kund, "KundID", "Förnamn", order.KundID);
             return View(order);
         }
 
@@ -90,7 +90,7 @@ namespace Labb1WOMU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.KundID = new SelectList(db.Kunds, "KundID", "Förnamn", order.KundID);
+            ViewBag.KundID = new SelectList(db.Kund, "KundID", "Förnamn", order.KundID);
             return View(order);
         }
 
@@ -101,7 +101,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            Order order = db.Order.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -114,8 +114,8 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
+            Order order = db.Order.Find(id);
+            db.Order.Remove(order);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

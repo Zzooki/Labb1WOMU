@@ -12,13 +12,13 @@ namespace Labb1WOMU.Controllers
 {
     public class OrderradController : Controller
     {
-        private DBTEntities db = new DBTEntities();
+        private DBTEntities1 db = new DBTEntities1();
 
         // GET: Orderrad
         public ActionResult Index()
         {
-            var orderrads = db.Orderrads.Include(o => o.Artikel).Include(o => o.Order);
-            return View(orderrads.ToList());
+            var orderrad = db.Orderrad.Include(o => o.Artikel).Include(o => o.Order);
+            return View(orderrad.ToList());
         }
 
         // GET: Orderrad/Details/5
@@ -28,7 +28,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Orderrad orderrad = db.Orderrads.Find(id);
+            Orderrad orderrad = db.Orderrad.Find(id);
             if (orderrad == null)
             {
                 return HttpNotFound();
@@ -39,8 +39,8 @@ namespace Labb1WOMU.Controllers
         // GET: Orderrad/Create
         public ActionResult Create()
         {
-            ViewBag.ArtikelID = new SelectList(db.Artikels, "ArtikelID", "ArtikelNamn");
-            ViewBag.OrderID = new SelectList(db.Orders, "OrderId", "OrderId");
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn");
+            ViewBag.OrderID = new SelectList(db.Order, "OrderId", "OrderId");
             return View();
         }
 
@@ -53,13 +53,13 @@ namespace Labb1WOMU.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Orderrads.Add(orderrad);
+                db.Orderrad.Add(orderrad);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ArtikelID = new SelectList(db.Artikels, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrderId", "OrderId", orderrad.OrderID);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Order, "OrderId", "OrderId", orderrad.OrderID);
             return View(orderrad);
         }
 
@@ -70,13 +70,13 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Orderrad orderrad = db.Orderrads.Find(id);
+            Orderrad orderrad = db.Orderrad.Find(id);
             if (orderrad == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ArtikelID = new SelectList(db.Artikels, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrderId", "OrderId", orderrad.OrderID);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Order, "OrderId", "OrderId", orderrad.OrderID);
             return View(orderrad);
         }
 
@@ -93,8 +93,8 @@ namespace Labb1WOMU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ArtikelID = new SelectList(db.Artikels, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
-            ViewBag.OrderID = new SelectList(db.Orders, "OrderId", "OrderId", orderrad.OrderID);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", orderrad.ArtikelID);
+            ViewBag.OrderID = new SelectList(db.Order, "OrderId", "OrderId", orderrad.OrderID);
             return View(orderrad);
         }
 
@@ -105,7 +105,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Orderrad orderrad = db.Orderrads.Find(id);
+            Orderrad orderrad = db.Orderrad.Find(id);
             if (orderrad == null)
             {
                 return HttpNotFound();
@@ -118,8 +118,8 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Orderrad orderrad = db.Orderrads.Find(id);
-            db.Orderrads.Remove(orderrad);
+            Orderrad orderrad = db.Orderrad.Find(id);
+            db.Orderrad.Remove(orderrad);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -12,17 +12,12 @@ namespace Labb1WOMU.Controllers
 {
     public class ArtikelController : Controller
     {
-        private DBTEntities db = new DBTEntities();
+        private DBTEntities1 db = new DBTEntities1();
 
         // GET: Artikel
         public ActionResult Index()
         {
-            return View(db.Artikels.ToList());
-        }
-
-        public ActionResult Produkt()
-        {
-            return View(db.Artikels.ToList());
+            return View(db.Artikel.ToList());
         }
 
         // GET: Artikel/Details/5
@@ -32,7 +27,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikel artikel = db.Artikels.Find(id);
+            Artikel artikel = db.Artikel.Find(id);
             if (artikel == null)
             {
                 return HttpNotFound();
@@ -55,7 +50,7 @@ namespace Labb1WOMU.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Artikels.Add(artikel);
+                db.Artikel.Add(artikel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,7 +65,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikel artikel = db.Artikels.Find(id);
+            Artikel artikel = db.Artikel.Find(id);
             if (artikel == null)
             {
                 return HttpNotFound();
@@ -101,7 +96,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Artikel artikel = db.Artikels.Find(id);
+            Artikel artikel = db.Artikel.Find(id);
             if (artikel == null)
             {
                 return HttpNotFound();
@@ -114,8 +109,8 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Artikel artikel = db.Artikels.Find(id);
-            db.Artikels.Remove(artikel);
+            Artikel artikel = db.Artikel.Find(id);
+            db.Artikel.Remove(artikel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -7,8 +7,8 @@
 <h2>Index</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+       @Html.ActionLink("Create New", "Create")
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -29,29 +29,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtikelNamn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Beskrivning)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Antal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pris)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aktuell)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.ArtikelID }) |*@
-            @Html.ActionLink("Details", "Details", new { id=item.ArtikelID }) 
-            @*@Html.ActionLink("Delete", "Delete", new { id=item.ArtikelID })*@
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtikelNamn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Beskrivning)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Antal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pris)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aktuell)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.ArtikelID }) |*@
+                @Html.ActionLink("Details", "Details", new { id = item.ArtikelID })
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.ArtikelID })*@
+            </td>
+        </tr>
+    }
 
 </table>

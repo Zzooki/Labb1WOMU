@@ -12,12 +12,12 @@ namespace Labb1WOMU.Controllers
 {
     public class KundController : Controller
     {
-        private DBTEntities db = new DBTEntities();
+        private DBTEntities1 db = new DBTEntities1();
 
         // GET: Kund
         public ActionResult Index()
         {
-            return View(db.Kunds.ToList());
+            return View(db.Kund.ToList());
         }
 
         // GET: Kund/Details/5
@@ -27,7 +27,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kunds.Find(id);
+            Kund kund = db.Kund.Find(id);
             if (kund == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace Labb1WOMU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,PostOrt,Ort")] Kund kund)
+        public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
         {
             if (ModelState.IsValid)
             {
-                db.Kunds.Add(kund);
+                db.Kund.Add(kund);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kunds.Find(id);
+            Kund kund = db.Kund.Find(id);
             if (kund == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace Labb1WOMU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,PostOrt,Ort")] Kund kund)
+        public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Labb1WOMU.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kunds.Find(id);
+            Kund kund = db.Kund.Find(id);
             if (kund == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Kund kund = db.Kunds.Find(id);
-            db.Kunds.Remove(kund);
+            Kund kund = db.Kund.Find(id);
+            db.Kund.Remove(kund);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
