@@ -10,6 +10,8 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+
+    
     
     <div class="form-horizontal">
         <h4>Kund</h4>
@@ -48,9 +50,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PostNr, "PostNr", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PostNr, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PostNr", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.PostNr, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PostNr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -68,6 +70,22 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TelefonNr, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TelefonNr, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostOrt, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostOrt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostOrt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ort, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ort, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ort, "", new { @class = "text-danger" })
             </div>
         </div>
 

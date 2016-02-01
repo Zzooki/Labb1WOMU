@@ -27,9 +27,10 @@ namespace Labb1WOMU.Models
         public int PostNr { get; set; }
         public string Epost { get; set; }
         public int TelefonNr { get; set; }
+        public string PostOrt { get; set; }
+        public string Ort { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
-        public virtual PostNrOrt PostNrOrt { get; set; }
     }
 }

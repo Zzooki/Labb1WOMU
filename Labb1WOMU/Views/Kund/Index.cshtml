@@ -21,13 +21,19 @@
             @Html.DisplayNameFor(model => model.Postadress)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.PostNr)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Epost)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TelefonNr)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostNrOrt.Ort)
+            @Html.DisplayNameFor(model => model.PostOrt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ort)
         </th>
         <th></th>
     </tr>
@@ -44,13 +50,19 @@
             @Html.DisplayFor(modelItem => item.Postadress)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.PostNr)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Epost)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TelefonNr)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PostNrOrt.Ort)
+            @Html.DisplayFor(modelItem => item.PostOrt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ort)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.KundID }) |
