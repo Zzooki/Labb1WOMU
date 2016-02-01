@@ -20,6 +20,11 @@ namespace Labb1WOMU.Controllers
             return View(db.Artikels.ToList());
         }
 
+        public ActionResult Produkt()
+        {
+            return View(db.Artikels.ToList());
+        }
+
         // GET: Artikel/Details/5
         public ActionResult Details(int? id)
         {
