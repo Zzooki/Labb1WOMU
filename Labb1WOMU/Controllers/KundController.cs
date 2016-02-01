@@ -17,8 +17,7 @@ namespace Labb1WOMU.Controllers
         // GET: Kund
         public ActionResult Index()
         {
-            var kunds = db.Kunds.Include(k => k.PostNrOrt);
-            return View(kunds.ToList());
+            return View(db.Kunds.ToList());
         }
 
         // GET: Kund/Details/5
@@ -39,7 +38,6 @@ namespace Labb1WOMU.Controllers
         // GET: Kund/Create
         public ActionResult Create()
         {
-            ViewBag.PostNr = new SelectList(db.PostNrOrts, "PostNr", "Ort");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace Labb1WOMU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr")] Kund kund)
+        public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,PostOrt,Ort")] Kund kund)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace Labb1WOMU.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PostNr = new SelectList(db.PostNrOrts, "PostNr", "Ort", kund.PostNr);
             return View(kund);
         }
 
@@ -73,7 +70,6 @@ namespace Labb1WOMU.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.PostNr = new SelectList(db.PostNrOrts, "PostNr", "Ort", kund.PostNr);
             return View(kund);
         }
 
@@ -82,7 +78,7 @@ namespace Labb1WOMU.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr")] Kund kund)
+        public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,PostOrt,Ort")] Kund kund)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace Labb1WOMU.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PostNr = new SelectList(db.PostNrOrts, "PostNr", "Ort", kund.PostNr);
             return View(kund);
         }
 

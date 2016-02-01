@@ -9,10 +9,8 @@
         <EntityTypeShape EntityType="DBTModel.Kund" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTModel.Order" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBTModel.Orderrad" Width="1.5" PointX="7.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBTModel.PostNrOrt" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <AssociationConnector Association="DBTModel.FK_ArtikelID" ManuallyRouted="false" />
         <AssociationConnector Association="DBTModel.FK_KundID" ManuallyRouted="false" />
-        <AssociationConnector Association="DBTModel.FK_PostNr" ManuallyRouted="false" />
         <AssociationConnector Association="DBTModel.FK_OrderID" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

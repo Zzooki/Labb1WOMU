@@ -201,7 +201,6 @@
     <Compile Include="Controllers\KundController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderradController.cs" />
-    <Compile Include="Controllers\PostNrOrtsController.cs" />
     <Compile Include="Controllers\VarukorgController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -236,9 +235,6 @@
       <DependentUpon>ContosoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Orderrad.cs">
-      <DependentUpon>ContosoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PostNrOrt.cs">
       <DependentUpon>ContosoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,11 +309,6 @@
     <Content Include="Views\Varukorg\Betala.cshtml" />
     <Content Include="Views\Varukorg\Varor.cshtml" />
     <Content Include="Views\Shared\_KundkorgLayout.cshtml" />
-    <Content Include="Views\Kund\Create.cshtml" />
-    <Content Include="Views\Kund\Delete.cshtml" />
-    <Content Include="Views\Kund\Details.cshtml" />
-    <Content Include="Views\Kund\Edit.cshtml" />
-    <Content Include="Views\Kund\Index.cshtml" />
     <Content Include="Views\Artikel\Create.cshtml" />
     <Content Include="Views\Artikel\Delete.cshtml" />
     <Content Include="Views\Artikel\Details.cshtml" />
@@ -333,11 +324,11 @@
     <Content Include="Views\Orderrad\Details.cshtml" />
     <Content Include="Views\Orderrad\Edit.cshtml" />
     <Content Include="Views\Orderrad\Index.cshtml" />
-    <Content Include="Views\PostNrOrts\Create.cshtml" />
-    <Content Include="Views\PostNrOrts\Delete.cshtml" />
-    <Content Include="Views\PostNrOrts\Details.cshtml" />
-    <Content Include="Views\PostNrOrts\Edit.cshtml" />
-    <Content Include="Views\PostNrOrts\Index.cshtml" />
+    <Content Include="Views\Kund\Create.cshtml" />
+    <Content Include="Views\Kund\Delete.cshtml" />
+    <Content Include="Views\Kund\Details.cshtml" />
+    <Content Include="Views\Kund\Edit.cshtml" />
+    <Content Include="Views\Kund\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
