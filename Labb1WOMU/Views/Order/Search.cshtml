@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@model IEnumerable<Labb1WOMU.Models.Order>
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Year</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KundID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orderrad)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -20,6 +20,24 @@ namespace Labb1WOMU.Controllers
             var order = db.Order.Include(o => o.Kund);
             return View(order.ToList());
         }
+        
+        public ActionResult Search(string searchValue)
+        {
+     
+            var result = from order in db.Order
+                         select order;
+
+            int value = Int32.Parse(searchValue);
+
+            if (!String.IsNullOrEmpty(searchValue))
+            {
+                result = result.Where(s => s.OrderId.Equals(value));
+            }
+           
+            
+            return View(result);
+
+        }
 
         // GET: Order/Details/5
         public ActionResult Details(int? id)

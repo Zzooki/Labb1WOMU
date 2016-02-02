@@ -47,8 +47,14 @@
         <footer>
             <p>&copy; @DateTime.Now.Year -
             <p>
-                OrderID: @Html.TextBox("SearchString") 
-                <input type="submit" value="Search" />
+
+                @using (Html.BeginForm("Search", "Order"))
+                {
+                <p>
+                    Title: @Html.TextBox("searchValue")
+                    <input type="submit" value="Filter" />
+                </p>
+                } 
             </p>
             </p>
         </footer>
