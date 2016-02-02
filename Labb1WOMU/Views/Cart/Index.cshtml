@@ -37,7 +37,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CartID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CartID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CartID })
+            @Ajax.ActionLink("Remove From Cart", "RemoveFromCart", new { id = item.ArtikelID },
+            new AjaxOptions { OnSuccess = "handleupdate" })
         </td>
     </tr>
 }
