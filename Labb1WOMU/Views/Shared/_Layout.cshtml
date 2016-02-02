@@ -45,7 +45,12 @@
         
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - This is the footer wanna add somethins here?</p>
+            <p>&copy; @DateTime.Now.Year -
+            <p>
+                OrderID: @Html.TextBox("SearchString") 
+                <input type="submit" value="Search" />
+            </p>
+            </p>
         </footer>
     </div>
     
