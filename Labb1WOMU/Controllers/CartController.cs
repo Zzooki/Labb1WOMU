@@ -10,107 +10,112 @@ using Labb1WOMU.Models;
 
 namespace Labb1WOMU.Controllers
 {
-    public class KundController : Controller
+    public class CartController : Controller
     {
         private DBTEntities1 db = new DBTEntities1();
 
-        // GET: Kund
+        // GET: Cart
         public ActionResult Index()
         {
-            return View(db.Kund.ToList());
+            var cart = db.Cart.Include(c => c.Artikel);
+            return View(cart.ToList());
         }
 
-        // GET: Kund/Details/5
+        // GET: Cart/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kund.Find(id);
-            if (kund == null)
+            Cart cart = db.Cart.Find(id);
+            if (cart == null)
             {
                 return HttpNotFound();
             }
-            return View(kund);
+            return View(cart);
         }
 
-        // GET: Kund/Create
+        // GET: Cart/Create
         public ActionResult Create()
         {
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn");
             return View();
         }
 
-        // POST: Kund/Create
+        // POST: Cart/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
+        public ActionResult Create([Bind(Include = "CartID,ArtikelID,Count,DateCreated")] Cart cart)
         {
             if (ModelState.IsValid)
             {
-                db.Kund.Add(kund);
+                db.Cart.Add(cart);
                 db.SaveChanges();
-                return RedirectToAction("ConfirmOrder");
+                return RedirectToAction("Index");
             }
 
-            return View(kund);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", cart.ArtikelID);
+            return View(cart);
         }
 
-        // GET: Kund/Edit/5
+        // GET: Cart/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kund.Find(id);
-            if (kund == null)
+            Cart cart = db.Cart.Find(id);
+            if (cart == null)
             {
                 return HttpNotFound();
             }
-            return View(kund);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", cart.ArtikelID);
+            return View(cart);
         }
 
-        // POST: Kund/Edit/5
+        // POST: Cart/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
+        public ActionResult Edit([Bind(Include = "CartID,ArtikelID,Count,DateCreated")] Cart cart)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(kund).State = EntityState.Modified;
+                db.Entry(cart).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(kund);
+            ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn", cart.ArtikelID);
+            return View(cart);
         }
 
-        // GET: Kund/Delete/5
+        // GET: Cart/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Kund kund = db.Kund.Find(id);
-            if (kund == null)
+            Cart cart = db.Cart.Find(id);
+            if (cart == null)
             {
                 return HttpNotFound();
             }
-            return View(kund);
+            return View(cart);
         }
 
-        // POST: Kund/Delete/5
+        // POST: Cart/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Kund kund = db.Kund.Find(id);
-            db.Kund.Remove(kund);
+            Cart cart = db.Cart.Find(id);
+            db.Cart.Remove(cart);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -122,10 +127,6 @@ namespace Labb1WOMU.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-        public ActionResult ConfirmOrder()
-        {
-            return View();
         }
     }
 }

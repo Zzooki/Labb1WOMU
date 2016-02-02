@@ -29,5 +29,6 @@ namespace Labb1WOMU.Models
         public virtual DbSet<Kund> Kund { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Orderrad> Orderrad { get; set; }
+        public virtual DbSet<Cart> Cart { get; set; }
     }
 }
