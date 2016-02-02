@@ -20,10 +20,10 @@
           <Key>
             <PropertyRef Name="CartID" />
           </Key>
-          <Property Name="CartID" Type="int" Nullable="false" />
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ArtikelID" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="date" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Kund">
           <Key>
@@ -242,7 +242,7 @@
           <Property Name="CartID" Type="Int32" Nullable="false" />
           <Property Name="ArtikelID" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Artikel" Relationship="DBTModel.FK_Cart_Artikel" FromRole="Cart" ToRole="Artikel" />
         </EntityType>
         <Association Name="FK_Cart_Artikel">

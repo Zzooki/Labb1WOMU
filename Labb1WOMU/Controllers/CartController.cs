@@ -40,6 +40,7 @@ namespace Labb1WOMU.Controllers
         public ActionResult Create()
         {
             ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn");
+            ViewBag.Date = DateTime.Today;
             return View();
         }
 
@@ -50,6 +51,9 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CartID,ArtikelID,Count,DateCreated")] Cart cart)
         {
+            DateTime wtf = new DateTime();
+            cart.DateCreated = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Cart.Add(cart);
