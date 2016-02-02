@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Labb1WOMU.Models;
+using System.Web.UI.WebControls;
 
 namespace Labb1WOMU.Controllers
 {
@@ -111,6 +112,16 @@ namespace Labb1WOMU.Controllers
                 return HttpNotFound();
             }
             return View(cart);
+        }
+
+        [HttpPost]
+        public void RemoveFromCart(int id)
+        {
+            var cart = Cart.GetCart(this.HttpContext);
+
+            string artikelNamn = db.Cart.Single(artikel => artikel.ArtikelID == id).Artikel.ArtikelNamn;
+
+            cart.RemoveFromCart(id);
         }
 
         // POST: Cart/Delete/5
