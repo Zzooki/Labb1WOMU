@@ -18,6 +18,7 @@ namespace Labb1WOMU.Models
         public Artikel()
         {
             this.Orderrad = new HashSet<Orderrad>();
+            this.Cart = new HashSet<Cart>();
         }
     
         public int ArtikelID { get; set; }
@@ -29,5 +30,7 @@ namespace Labb1WOMU.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orderrad> Orderrad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Cart { get; set; }
     }
 }

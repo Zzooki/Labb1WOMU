@@ -12,6 +12,8 @@
         <AssociationConnector Association="DBTModel.FK_ArtikelID" ManuallyRouted="false" />
         <AssociationConnector Association="DBTModel.FK_KundID" ManuallyRouted="false" />
         <AssociationConnector Association="DBTModel.FK_OrderID" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBTModel.Cart" Width="1.5" PointX="5.25" PointY="5.375" />
+        <AssociationConnector Association="DBTModel.FK_Cart_Artikel" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

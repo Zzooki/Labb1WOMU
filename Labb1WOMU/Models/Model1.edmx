@@ -16,11 +16,20 @@
           <Property Name="Pris" Type="int" Nullable="false" />
           <Property Name="Aktuell" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" Nullable="false" />
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="date" />
+        </EntityType>
         <EntityType Name="Kund">
           <Key>
             <PropertyRef Name="KundID" />
           </Key>
-          <Property Name="KundID" Type="int" Nullable="false" />
+          <Property Name="KundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Förnamn" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Efternamn" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Postadress" Type="varchar" MaxLength="50" Nullable="false" />
@@ -33,7 +42,7 @@
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
-          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KundID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Orderrad">
@@ -53,6 +62,18 @@
               <PropertyRef Name="ArtikelID" />
             </Principal>
             <Dependent Role="Orderrad">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Artikel">
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="ArtikelID" />
+            </Principal>
+            <Dependent Role="Cart">
               <PropertyRef Name="ArtikelID" />
             </Dependent>
           </ReferentialConstraint>
@@ -83,12 +104,17 @@
         </Association>
         <EntityContainer Name="DBTModelStoreContainer">
           <EntitySet Name="Artikel" EntityType="Self.Artikel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kund" EntityType="Self.Kund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orderrad" EntityType="Self.Orderrad" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ArtikelID" Association="Self.FK_ArtikelID">
             <End Role="Artikel" EntitySet="Artikel" />
             <End Role="Orderrad" EntitySet="Orderrad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Artikel" Association="Self.FK_Cart_Artikel">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
           <AssociationSet Name="FK_KundID" Association="Self.FK_KundID">
             <End Role="Kund" EntitySet="Kund" />
@@ -114,6 +140,7 @@
           <Property Name="Pris" Type="Int32" Nullable="false" />
           <Property Name="Aktuell" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Orderrad" Relationship="Self.FK_ArtikelID" FromRole="Artikel" ToRole="Orderrad" />
+          <NavigationProperty Name="Cart" Relationship="DBTModel.FK_Cart_Artikel" FromRole="Artikel" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Kund">
           <Key>
@@ -202,7 +229,34 @@
             <End Role="Order" EntitySet="Order" />
             <End Role="Orderrad" EntitySet="Orderrad" />
           </AssociationSet>
+          <EntitySet Name="Cart" EntityType="DBTModel.Cart" />
+          <AssociationSet Name="FK_Cart_Artikel" Association="DBTModel.FK_Cart_Artikel">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" />
+          <Property Name="ArtikelID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Artikel" Relationship="DBTModel.FK_Cart_Artikel" FromRole="Cart" ToRole="Artikel" />
+        </EntityType>
+        <Association Name="FK_Cart_Artikel">
+          <End Type="DBTModel.Artikel" Role="Artikel" Multiplicity="1" />
+          <End Type="DBTModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="ArtikelID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -249,6 +303,16 @@
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
                 <ScalarProperty Name="Antal" ColumnName="Antal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cart">
+            <EntityTypeMapping TypeName="DBTModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
