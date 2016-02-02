@@ -10,7 +10,9 @@ namespace Labb1WOMU.Controllers
 {
     public class HomeController : Controller
     {
+
         private DBTEntities1 db = new DBTEntities1();
+
         public ActionResult Index()
         {
             return View();
@@ -22,18 +24,6 @@ namespace Labb1WOMU.Controllers
             return View();
         }
 
-        public ActionResult Search(int query)
-        {
-            var result = from order in db.Order
-                         select order;
-
-            if (query > 0)
-            {
-                result = result.Where(s => s.OrderId == query);
-            }
-            return View(result);
-
-        }
 
         public ActionResult Contact()
         {
