@@ -54,6 +54,28 @@ namespace Labb1WOMU.Models
             }
         }
 
+        public void addToCart(Artikel artikel)
+        {
+            var produkt = db.Cart.SingleOrDefault(
+                cart => cart.ArtikelID == artikel.ArtikelID && cart.CartID == CartID);
+
+            if(produkt == null)
+            {
+                produkt = new Cart
+                {
+                    ArtikelID = artikel.ArtikelID,
+                    Count = 1,
+                    DateCreated = DateTime.Now
+                };
+                db.Cart.Add(produkt);
+            }
+            else
+            {
+                produkt.Count++;
+            }
+            db.SaveChanges();
+        }
+
         public int getCartId(HttpContextBase context)
         {
             Guid tempCartId = Guid.NewGuid();
