@@ -11,16 +11,15 @@ namespace Labb1WOMU.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    
     public partial class Cart
     {
-        [Key]
         public int CartID { get; set; }
-        public string StringCartID { get; set; }
         public int ArtikelID { get; set; }
         public int Count { get; set; }
         public System.DateTime DateCreated { get; set; }
-
+        public string StringCartID { get; set; }
+    
         public virtual Artikel Artikel { get; set; }
     }
 }

@@ -4,128 +4,129 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DBTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="DBTModelStoreContainer">
-    <EntitySet Name="Artikel" EntityType="DBTModel.Store.Artikel" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Kund" EntityType="DBTModel.Store.Kund" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Order" EntityType="DBTModel.Store.Order" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Orderrad" EntityType="DBTModel.Store.Orderrad" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Cart" EntityType="DBTModel.Store.Cart" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_ArtikelID" Association="DBTModel.Store.FK_ArtikelID">
-      <End Role="Artikel" EntitySet="Artikel" />
-      <End Role="Orderrad" EntitySet="Orderrad" />
-    </AssociationSet>
-    <AssociationSet Name="FK_KundID" Association="DBTModel.Store.FK_KundID">
-      <End Role="Kund" EntitySet="Kund" />
-      <End Role="Order" EntitySet="Order" />
-    </AssociationSet>
-    <AssociationSet Name="FK_OrderID" Association="DBTModel.Store.FK_OrderID">
-      <End Role="Order" EntitySet="Order" />
-      <End Role="Orderrad" EntitySet="Orderrad" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Cart_Artikel" Association="DBTModel.Store.FK_Cart_Artikel">
-      <End Role="Artikel" EntitySet="Artikel" />
-      <End Role="Cart" EntitySet="Cart" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Artikel">
-    <Key>
-      <PropertyRef Name="ArtikelID" />
-    </Key>
-    <Property Name="ArtikelID" Type="int" Nullable="false" />
-    <Property Name="ArtikelNamn" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Beskrivning" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Antal" Type="int" Nullable="false" />
-    <Property Name="Pris" Type="int" Nullable="false" />
-    <Property Name="Aktuell" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Kund">
-    <Key>
-      <PropertyRef Name="KundID" />
-    </Key>
-    <Property Name="KundID" Type="int" Nullable="false" />
-    <Property Name="Förnamn" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Efternamn" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Postadress" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="PostNr" Type="int" Nullable="false" />
-    <Property Name="Epost" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="TelefonNr" Type="int" Nullable="false" />
-    <Property Name="Ort" Type="varchar" Nullable="false" MaxLength="50" />
-  </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="OrderId" />
-    </Key>
-    <Property Name="OrderId" Type="int" Nullable="false" />
-    <Property Name="KundID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Orderrad">
-    <Key>
-      <PropertyRef Name="OrderID" />
-      <PropertyRef Name="ArtikelID" />
-    </Key>
-    <Property Name="OrderID" Type="int" Nullable="false" />
-    <Property Name="ArtikelID" Type="int" Nullable="false" />
-    <Property Name="Antal" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Cart">
-    <Key>
-      <PropertyRef Name="CartID" />
-    </Key>
-    <Property Name="CartID" Type="int" Nullable="false" />
-    <Property Name="ArtikelID" Type="int" Nullable="false" />
-    <Property Name="Count" Type="int" Nullable="false" />
-    <Property Name="DateCreated" Type="datetime" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_ArtikelID">
-    <End Role="Artikel" Type="DBTModel.Store.Artikel" Multiplicity="1" />
-    <End Role="Orderrad" Type="DBTModel.Store.Orderrad" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Artikel">
-        <PropertyRef Name="ArtikelID" />
-      </Principal>
-      <Dependent Role="Orderrad">
-        <PropertyRef Name="ArtikelID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_KundID">
-    <End Role="Kund" Type="DBTModel.Store.Kund" Multiplicity="1" />
-    <End Role="Order" Type="DBTModel.Store.Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Kund">
-        <PropertyRef Name="KundID" />
-      </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="KundID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_OrderID">
-    <End Role="Order" Type="DBTModel.Store.Order" Multiplicity="1" />
-    <End Role="Orderrad" Type="DBTModel.Store.Orderrad" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Order">
-        <PropertyRef Name="OrderId" />
-      </Principal>
-      <Dependent Role="Orderrad">
-        <PropertyRef Name="OrderID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Cart_Artikel">
-    <End Role="Artikel" Type="DBTModel.Store.Artikel" Multiplicity="1" />
-    <End Role="Cart" Type="DBTModel.Store.Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Artikel">
-        <PropertyRef Name="ArtikelID" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ArtikelID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="DBTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikel">
+          <Key>
+            <PropertyRef Name="ArtikelID" />
+          </Key>
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="ArtikelNamn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Beskrivning" Type="nvarchar(max)" />
+          <Property Name="Antal" Type="int" Nullable="false" />
+          <Property Name="Pris" Type="int" Nullable="false" />
+          <Property Name="Aktuell" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="StringCartID" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Kund">
+          <Key>
+            <PropertyRef Name="KundID" />
+          </Key>
+          <Property Name="KundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Förnamn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Efternamn" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Postadress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PostNr" Type="int" Nullable="false" />
+          <Property Name="Epost" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TelefonNr" Type="int" Nullable="false" />
+          <Property Name="Ort" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KundID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orderrad">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ArtikelID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ArtikelID" Type="int" Nullable="false" />
+          <Property Name="Antal" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArtikelID">
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="1" />
+          <End Role="Orderrad" Type="Self.Orderrad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="ArtikelID" />
+            </Principal>
+            <Dependent Role="Orderrad">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Artikel">
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="ArtikelID" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ArtikelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KundID">
+          <End Role="Kund" Type="Self.Kund" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kund">
+              <PropertyRef Name="KundID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="KundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderID">
+          <End Role="Order" Type="Self.Order" Multiplicity="1" />
+          <End Role="Orderrad" Type="Self.Orderrad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="Orderrad">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBTModelStoreContainer">
+          <EntitySet Name="Artikel" EntityType="Self.Artikel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kund" EntityType="Self.Kund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orderrad" EntityType="Self.Orderrad" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ArtikelID" Association="Self.FK_ArtikelID">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Artikel" Association="Self.FK_Cart_Artikel">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KundID" Association="Self.FK_KundID">
+            <End Role="Kund" EntitySet="Kund" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="Orderrad" EntitySet="Orderrad" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -244,6 +245,7 @@
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Artikel" Relationship="DBTModel.FK_Cart_Artikel" FromRole="Cart" ToRole="Artikel" />
+          <Property Name="StringCartID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Cart_Artikel">
           <End Type="DBTModel.Artikel" Role="Artikel" Multiplicity="1" />
@@ -309,7 +311,8 @@
     <EntitySetMapping Name="Cart">
       <EntityTypeMapping TypeName="IsTypeOf(DBTModel.Cart)">
         <MappingFragment StoreEntitySet="Cart">
-          <ScalarProperty Name="CartID" ColumnName="CartID" />
+          <ScalarProperty Name="StringCartID" ColumnName="StringCartID" />
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
           <ScalarProperty Name="ArtikelID" ColumnName="ArtikelID" />
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />

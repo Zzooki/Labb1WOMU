@@ -9,7 +9,6 @@ namespace Labb1WOMU.ViewModels
 {
     public class ShoppingCartViewModel
     {
-        public int ShoppingCartRandomId { get; set; }
         public List<Cart> CartItems { get; set; }
         public decimal CartTotal { get; set; }
     }
