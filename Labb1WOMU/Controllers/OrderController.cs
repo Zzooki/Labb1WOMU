@@ -32,11 +32,17 @@ namespace Labb1WOMU.Controllers
             {
                 result = result.Where(s => s.OrderId.Equals(value));
             }
-           
-            
+            else
+            {
+                return new EmptyResult();
+            }
+
+
             return View(result);
 
         }
+
+
 
         // GET: Order/Details/5
         public ActionResult Details(int? id)

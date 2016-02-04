@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Labb1WOMU.Models;
+using System.Text.RegularExpressions;
 
 namespace Labb1WOMU.Controllers
 {
@@ -56,6 +57,11 @@ namespace Labb1WOMU.Controllers
             }
 
             return View(kund);
+        }
+
+        public bool isOnlyLetters(string  s)
+        {
+            return Regex.IsMatch(s, @"^[a-öA-Ö]+$");
         }
 
         // GET: Kund/Edit/5
