@@ -20,7 +20,7 @@ namespace Labb1WOMU.Models
         public int ArtikelID { get; set; }
         public int Count { get; set; }
         public System.DateTime DateCreated { get; set; }
-    
+
         public virtual Artikel Artikel { get; set; }
     }
 }

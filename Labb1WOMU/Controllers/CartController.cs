@@ -142,6 +142,18 @@ namespace Labb1WOMU.Controllers
             return Json(results);
         }
 
+        public ActionResult AddToCart(int id)
+        {
+            var produkt = db.Artikel.Single(
+                artikel => artikel.ArtikelID == id);
+
+            var varuKorg = Cart.GetCart(this.HttpContext);
+
+            varuKorg.addToCart(produkt);
+
+            return RedirectToAction("Index");
+        }
+
         // POST: Cart/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
