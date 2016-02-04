@@ -30,5 +30,7 @@ namespace Labb1WOMU.Models
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<Orderrad> Orderrad { get; set; }
         public virtual DbSet<Cart> Cart { get; set; }
+
+        public System.Data.Entity.DbSet<Labb1WOMU.ViewModels.ShoppingCartViewModel> ShoppingCartViewModels { get; set; }
     }
 }

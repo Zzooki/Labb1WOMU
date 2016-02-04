@@ -11,9 +11,11 @@ namespace Labb1WOMU.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Orderrad
     {
+        [Key]
+        public int OrderradID { get; set; }
         public int OrderID { get; set; }
         public int ArtikelID { get; set; }
         public int Antal { get; set; }

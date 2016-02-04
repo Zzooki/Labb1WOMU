@@ -26,10 +26,9 @@ namespace Labb1WOMU.Controllers
      
             var result = from order in db.Order
                          select order;
+            int value;
 
-            int value = Int32.Parse(searchValue);
-
-            if (!String.IsNullOrEmpty(searchValue))
+            if (!String.IsNullOrEmpty(searchValue) && Int32.TryParse(searchValue, out value))
             {
                 result = result.Where(s => s.OrderId.Equals(value));
             }

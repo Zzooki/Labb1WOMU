@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Labb1WOMU.Models;
 using System.Web.UI.WebControls;
+using Labb1WOMU.ViewModels;
 
 namespace Labb1WOMU.Controllers
 {
@@ -18,8 +19,15 @@ namespace Labb1WOMU.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            var cart = db.Cart.Include(c => c.Artikel);
-            return View(cart.ToList());
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            var viewModel = new ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal()
+            };
+
+            return View(viewModel);
         }
 
         // GET: Cart/Details/5
@@ -52,7 +60,6 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CartID,ArtikelID,Count,DateCreated")] Cart cart)
         {
-            DateTime wtf = new DateTime();
             cart.DateCreated = DateTime.Now;
 
             if (ModelState.IsValid)
@@ -115,13 +122,24 @@ namespace Labb1WOMU.Controllers
         }
 
         [HttpPost]
-        public void RemoveFromCart(int id)
+        public ActionResult RemoveFromCart(int id)
         {
-            var cart = Cart.GetCart(this.HttpContext);
+            var cart = ShoppingCart.GetCart(this.HttpContext);
 
             string artikelNamn = db.Cart.Single(artikel => artikel.ArtikelID == id).Artikel.ArtikelNamn;
 
-            cart.RemoveFromCart(id);
+            int itemCount = cart.RemoveFromCart(id);
+
+            var results = new ShoppingCartRemoveViewModel
+            {
+                Message = Server.HtmlEncode(artikelNamn) + " har blivit borttagen från din varukorg!",
+                CartTotal = cart.GetTotal(),
+                CartCount = cart.GetCount(),
+                ItemCount = itemCount,
+                DeleteId = id,
+            };
+
+            return Json(results);
         }
 
         // POST: Cart/Delete/5
@@ -142,6 +160,25 @@ namespace Labb1WOMU.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult AddToCart(int id)
+        {
+            var produkt = db.Artikel.Single(
+                artikel => artikel.ArtikelID == id);
+
+            var varukorg = ShoppingCart.GetCart(this.HttpContext);
+
+            varukorg.AddToCart(produkt);
+
+            return RedirectToAction("Index");
+        }
+        [ChildActionOnly]
+        public ActionResult CartSummary()
+        {
+            var cart = ShoppingCart.GetCart(this.HttpContext);
+
+            ViewData["CartCount"] = cart.GetCount();
+            return PartialView("CartSummary");
         }
     }
 }

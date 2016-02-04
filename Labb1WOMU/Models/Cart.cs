@@ -11,56 +11,15 @@ namespace Labb1WOMU.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity.Core.Objects;
-    using System.Data.Entity.Infrastructure;
-    using System.Linq;
-    using System.Web;
+    using System.ComponentModel.DataAnnotations;
     public partial class Cart
     {
+        [Key]
         public int CartID { get; set; }
+        public string StringCartID { get; set; }
         public int ArtikelID { get; set; }
         public int Count { get; set; }
         public System.DateTime DateCreated { get; set; }
-
-        public const string CartSessionKey = "CartId";
-
-        private DBTEntities1 db = new DBTEntities1();
-
-        public static Cart GetCart(HttpContextBase context)
-        {
-            var cart = new Cart();
-            cart.CartID = cart.getCartId(context);
-            return cart;
-        }
-
-        public void RemoveFromCart(int id)
-        {
-            var cartItem = db.Cart.Single(
-                cart => cart.CartID == CartID && cart.CartID == id);
-
-            if (cartItem != null)
-            {
-                if (cartItem.Count > 1)
-                {
-                    cartItem.Count--;
-                }
-                else
-                {
-                    ObjectContext oc = ((IObjectContextAdapter)cartItem).ObjectContext;
-
-                    oc.DeleteObject(cartItem);
-                }
-                db.SaveChanges();
-            }
-        }
-
-        public int getCartId(HttpContextBase context)
-        {
-            Guid tempCartId = Guid.NewGuid();
-            context.Session[CartSessionKey] = tempCartId.ToString();
-
-            return (int)context.Session[CartSessionKey];
-        }
     
         public virtual Artikel Artikel { get; set; }
     }

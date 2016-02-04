@@ -1,27 +1,38 @@
-﻿@{
+﻿@model IEnumerable<Labb1WOMU.Models.Order>
+@{
     ViewBag.Title = "Search";
 }
 
 <h2>Search</h2>
 
-@model IEnumerable<Labb1WOMU.Models.Order>
 
-<table>
+<table class="table">
     <tr>
-        <th>Title</th>
-        <th>Year</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kund.Förnamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kund.Efternamn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.KundID)
+                @Html.DisplayFor(modelItem => item.Kund.Förnamn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Orderrad)
+                @Html.DisplayFor(modelItem => item.Kund.Efternamn)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+           
         </tr>
     }
-
 </table>
