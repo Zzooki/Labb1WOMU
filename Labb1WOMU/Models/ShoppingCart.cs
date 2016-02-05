@@ -126,13 +126,14 @@ namespace Labb1WOMU.Models
 
             return total ?? decimal.Zero;
         }
-        public int CreateOrder(Order order)
+        public int CreateOrder(Order order, int kundId)
         {
        
 
             var cartItems = GetCartItems();
             // Iterate over the items in the cart, 
             // adding the order details for each
+            order.KundID = kundId;
             foreach (var item in cartItems)
             {
                 var orderrad = new Orderrad

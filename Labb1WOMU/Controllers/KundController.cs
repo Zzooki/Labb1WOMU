@@ -65,7 +65,7 @@ namespace Labb1WOMU.Controllers
                 db.SaveChanges();
 
                 var cart = ShoppingCart.GetCart(this.HttpContext);
-                cart.CreateOrder(order);
+                cart.CreateOrder(order, kundanother.KundID);
                 ViewData["OrderID"] = order.OrderId;
 
                 return RedirectToAction("ConfirmOrder", new { id = order.OrderId});
