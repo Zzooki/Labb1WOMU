@@ -61,6 +61,7 @@ namespace Labb1WOMU.Controllers
                 var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
 
                 var kundanother = kundTemp.Single();
+                order.KundID = kundanother.KundID;
                 db.Order.Add(order);
                 db.SaveChanges();
 
