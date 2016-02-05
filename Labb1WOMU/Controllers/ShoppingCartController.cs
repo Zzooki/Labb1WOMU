@@ -12,7 +12,7 @@ using Labb1WOMU.ViewModels;
 
 namespace Labb1WOMU.Controllers
 {
-    public class CartController : Controller
+    public class ShoppingCartController : Controller
     {
         private DBTEntities1 db = new DBTEntities1();
 
