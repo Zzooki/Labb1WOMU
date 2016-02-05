@@ -25,6 +25,7 @@
                         $('#update-message').text(data.Message);
                         $('#cart-status').text(data.CartCount);
                     });
+                window.location.reload();
             }
         });
     });
@@ -55,7 +56,7 @@
     {
         <tr id="row-@item.CartID">
             <td>
-                @Html.ActionLink(item.Artikel.ArtikelNamn, "Details", "Store", new { id = item.ArtikelID }, null)
+                @Html.ActionLink(item.Artikel.ArtikelNamn, "Details", "Artikel", new { id = item.ArtikelID }, null)
             </td>
             <td>
                 @item.Artikel.Pris

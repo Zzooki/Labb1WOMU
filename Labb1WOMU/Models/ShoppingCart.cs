@@ -22,7 +22,7 @@ namespace Labb1WOMU.Models
         public int RemoveFromCart(int id)
         {
             var cartItem = db.Cart.Single(
-                cart => cart.StringCartID == ShoppingCartId && cart.CartID == id);
+                cart => cart.StringCartID == ShoppingCartId && cart.ArtikelID == id);
 
             int itemCount = 0;
 

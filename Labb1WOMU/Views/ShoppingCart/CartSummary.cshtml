@@ -1,0 +1,81 @@
+﻿@model Labb1WOMU.ViewModels.ShoppingCartViewModel
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+
+<h3>
+    Din kundvagn:
+</h3>
+
+<div class="table-hover">
+
+    <table style="">
+        <tr>
+            <th>
+                Namn:
+            </th>
+            <th>
+                Artikel Nr:
+            </th>
+            <th>
+                Pris/st:
+            </th>
+            <th>
+                Antal:
+            </th>
+            <th>
+                Pris*Antal:
+            </th>
+            <th>
+                Beskrivning:
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr id="row-@item.CartID">
+                <td>
+                    @item.Artikel.ArtikelNamn
+                </td>
+                <td>
+                    @item.Artikel.ArtikelID
+                </td>
+                <td>
+                    @item.Artikel.Pris
+                </td>
+                <td id="item-count-@item.CartID">
+                    @item.Count
+                </td>
+                <td id="item-count-@item.CartID * @item.Artikel.Pris">
+                    @(item.Count * item.Artikel.Pris)
+                </td>
+                <td>
+                    @Html.ActionLink("Se mer detaljerad information här", "Details", "Artikel", new { id = item.ArtikelID }, null)
+                </td>
+                <td>
+                    <a href="#" class="RemoveLink" data-id="@item.ArtikelID">
+                        Remove
+                        from cart
+                    </a>
+
+
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                Total
+            </td>
+            <td></td>
+            <td></td>
+            <td id="cart-total">
+                @Model.CartTotal
+            </td>
+        </tr>
+    </table>
+    <p class="button">
+        @Html.ActionLink("Checkout >> ", "Create", "Kund")
+    </p>
+
+</div>
