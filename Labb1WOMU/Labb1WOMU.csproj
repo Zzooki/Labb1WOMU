@@ -198,7 +198,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\ArtikelController.cs" />
-    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KundController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -332,12 +332,12 @@
     <Content Include="Views\Orderrad\Edit.cshtml" />
     <Content Include="Views\Orderrad\Index.cshtml" />
     <Content Include="Views\Kund\ConfirmOrder.cshtml" />
-    <Content Include="Views\Cart\Create.cshtml" />
-    <Content Include="Views\Cart\Delete.cshtml" />
-    <Content Include="Views\Cart\Details.cshtml" />
-    <Content Include="Views\Cart\Edit.cshtml" />
+    <Content Include="Views\ShoppingCart\Create.cshtml" />
+    <Content Include="Views\ShoppingCart\Delete.cshtml" />
+    <Content Include="Views\ShoppingCart\Details.cshtml" />
+    <Content Include="Views\ShoppingCart\Edit.cshtml" />
     <Content Include="Views\Order\Search.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
