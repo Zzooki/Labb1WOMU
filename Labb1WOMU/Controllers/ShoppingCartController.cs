@@ -126,7 +126,7 @@ namespace Labb1WOMU.Controllers
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            string artikelNamn = db.Cart.Single(artikel => artikel.ArtikelID == id).Artikel.ArtikelNamn;
+            string artikelNamn = db.Artikel.Single(item => item.ArtikelID == id).ArtikelNamn;
 
             int itemCount = cart.RemoveFromCart(id);
 
@@ -177,8 +177,14 @@ namespace Labb1WOMU.Controllers
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            ViewData["CartCount"] = cart.GetCount();
-            return PartialView("CartSummary");
+            var viewModel = new ShoppingCartViewModel
+            {
+                CartItems = cart.GetCartItems(),
+                CartTotal = cart.GetTotal()
+            };
+
+            return PartialView(viewModel);
         }
+ 
     }
 }

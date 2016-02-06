@@ -11,5 +11,6 @@ namespace Labb1WOMU.ViewModels
     {
         public List<Cart> CartItems { get; set; }
         public decimal CartTotal { get; set; }
+        public decimal ProductTotal { get; set; }
     }
 }

@@ -36,8 +36,8 @@
                     @RenderBody()
                 </td>
                 
-                    <td style="vertical-align:top; padding-top:10px; max-width: 250px; font-size:smaller;">
-                        @Html.Partial("_KundKorgLayout")
+                    <td style="vertical-align:top; padding-top:10px; font-size:smaller;">
+                        @{Html.RenderAction("CartSummary", "ShoppingCart");}
                     </td>
                 
             </tr>

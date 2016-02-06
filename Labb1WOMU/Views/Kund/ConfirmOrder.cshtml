@@ -1,7 +1,11 @@
-﻿
+﻿@using Labb1WOMU.Models
 @{
     ViewBag.Title = "ConfirmOrder";
 }
 
-<h2>The order is complete!</h2>
-
+<h2>Checkout Complete</h2>
+<p>Thanks for your order! Your order number is: @ViewData["OrderID"]</p>
+<p>
+    Fortsätt att shoppa
+    @Html.ActionLink("Här:","Index", "Artikel")
+</p>

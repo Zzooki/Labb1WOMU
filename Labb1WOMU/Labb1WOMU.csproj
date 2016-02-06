@@ -311,7 +311,6 @@
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_KundkorgLayout.cshtml" />
     <Content Include="Views\Kund\Create.cshtml" />
     <Content Include="Views\Kund\Delete.cshtml" />
     <Content Include="Views\Kund\Details.cshtml" />
@@ -339,6 +338,7 @@
     <Content Include="Views\ShoppingCart\Edit.cshtml" />
     <Content Include="Views\Order\Search.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\CartSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -67,13 +67,30 @@ namespace Labb1WOMU.Controllers
                 };
                 return Json(emailView);
             }
+            var order = new Order();
+            TryUpdateModel(order);
 
             if (ModelState.IsValid)
             {
                 db.Kund.Add(kund);
                 db.SaveChanges();
-                return RedirectToAction("ConfirmOrder");
+                var searchTemp = from sc in db.Kund select sc;
+
+                var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
+
+                var kundanother = kundTemp.Single();
+                db.Order.Add(order);
+                db.SaveChanges();
+
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                cart.CreateOrder(order);
+                ViewData["OrderID"] = order.OrderId;
+
+                return RedirectToAction("ConfirmOrder", new { id = order.OrderId});
             }
+
+            
+
 
             return View(kund);
         }
@@ -161,9 +178,19 @@ namespace Labb1WOMU.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult ConfirmOrder()
+        public ActionResult ConfirmOrder(int id)
         {
-            return View();
+            bool isValid = db.Order.Any(
+            o => o.OrderId == id);
+
+            if (isValid)
+            {
+                return View(id);
+            }
+            else
+            {
+                return View("Error");
+            }
         }
     }
 }
