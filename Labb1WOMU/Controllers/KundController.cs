@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Labb1WOMU.Models;
 using System.Text.RegularExpressions;
 using Labb1WOMU.ViewModels;
+using System.Web.UI.WebControls;
 
 namespace Labb1WOMU.Controllers
 {
@@ -52,11 +53,11 @@ namespace Labb1WOMU.Controllers
         {
             if (!isOnlyLetters(kund.Förnamn) || !isOnlyLetters(kund.Efternamn))
             {
-                var namnView = new KundCreateViewModel()
-                {
-                    Message = "Förnamn/Efternamn får endast innehålla bökstäver!"
-                };
-                return Json(namnView);
+                //var namnView = new KundCreateViewModel()
+                //{
+                //    Message = "Förnamn/Efternamn får endast innehålla bökstäver!"
+                //};
+                return PartialView("KundCreateView", kund);
             }
 
             if (!IsValidEmail(kund.Epost))
@@ -65,37 +66,49 @@ namespace Labb1WOMU.Controllers
                 {
                     Message = "Epost måste vara i korrekt format: asd@domain.com"
                 };
-                return Json(emailView);
+                return PartialView("KundCreateView", kund);
             }
             var order = new Order();
             TryUpdateModel(order);
 
-            if (ModelState.IsValid)
+            try
             {
-                db.Kund.Add(kund);
-                db.SaveChanges();
-                var searchTemp = from sc in db.Kund select sc;
+                if (ModelState.IsValid)
+                {
+                    db.Kund.Add(kund);
+                    db.SaveChanges();
+                    var searchTemp = from sc in db.Kund select sc;
 
-                var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
+                    var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
+                    var kundanother = kundTemp.Single();
+                    db.Order.Add(order);
+                    db.SaveChanges();
 
-                var kundanother = kundTemp.Single();
-                db.Order.Add(order);
-                db.SaveChanges();
+                    var cart = ShoppingCart.GetCart(this.HttpContext);
+                    var items = cart.GetCartItems();
+                    foreach (var item in items)
+                    {
+                        var produkt = db.Artikel.Single(
+                        artikel => artikel.ArtikelID == item.ArtikelID);
+                        if (item.Count > produkt.Antal)
+                        {
+                            return View(kund);
+                        }
+                    }
+                    cart.CreateOrder(order);
+                    ViewData["OrderID"] = order.OrderId;
 
-                var cart = ShoppingCart.GetCart(this.HttpContext);
-                cart.CreateOrder(order);
-                ViewData["OrderID"] = order.OrderId;
-
-                return RedirectToAction("ConfirmOrder", new { id = order.OrderId});
+                    return RedirectToAction("ConfirmOrder", new { id = order.OrderId });
+                }
             }
-
-            
-
-
+            catch
+            {
+                return View(kund);
+            }
             return View(kund);
         }
 
-        bool IsValidEmail(string email)
+            bool IsValidEmail(string email)
         {
             try
             {
