@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Labb1WOMU.Models;
 using System.Text.RegularExpressions;
+using Labb1WOMU.ViewModels;
 
 namespace Labb1WOMU.Controllers
 {
@@ -49,6 +50,24 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
         {
+            if (!isOnlyLetters(kund.Förnamn) || !isOnlyLetters(kund.Efternamn))
+            {
+                var namnView = new KundCreateViewModel()
+                {
+                    Message = "Förnamn/Efternamn får endast innehålla bökstäver!"
+                };
+                return Json(namnView);
+            }
+
+            if (!IsValidEmail(kund.Epost))
+            {
+                var emailView = new KundCreateViewModel
+                {
+                    Message = "Epost måste vara i korrekt format: asd@domain.com"
+                };
+                return Json(emailView);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Kund.Add(kund);
@@ -57,6 +76,19 @@ namespace Labb1WOMU.Controllers
             }
 
             return View(kund);
+        }
+
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool isOnlyLetters(string  s)
