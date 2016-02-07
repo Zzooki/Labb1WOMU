@@ -20,14 +20,31 @@ namespace Labb1WOMU.Controllers
         public ActionResult Index()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
+            var recommendedItems = GetRecommendedItems(cart);
 
             var viewModel = new ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartTotal = cart.GetTotal(),
+                RecommendedItems = recommendedItems
             };
 
             return View(viewModel);
+        }
+
+        public List<Artikel> GetRecommendedItems(ShoppingCart cart)
+        {
+            List<Artikel> recommendedItems = new List<Artikel>();
+            var orders = db.Orderrad.ToList();
+            var items = cart.GetCartItems();
+            foreach (var item in items)
+            {
+                foreach (var order in orders)
+                {
+                    recommendedItems.Add(db.Artikel.Find((item.ArtikelID == order.ArtikelID)));
+                }
+            }
+            return recommendedItems;
         }
 
         // GET: Cart/Details/5

@@ -73,19 +73,11 @@ namespace Labb1WOMU.Controllers
 
             try
             {
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                var items = cart.GetCartItems();
+
                 if (ModelState.IsValid)
                 {
-                    db.Kund.Add(kund);
-                    db.SaveChanges();
-                    var searchTemp = from sc in db.Kund select sc;
-
-                    var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
-                    var kundanother = kundTemp.Single();
-                    db.Order.Add(order);
-                    db.SaveChanges();
-
-                    var cart = ShoppingCart.GetCart(this.HttpContext);
-                    var items = cart.GetCartItems();
                     foreach (var item in items)
                     {
                         var produkt = db.Artikel.Single(
@@ -95,6 +87,16 @@ namespace Labb1WOMU.Controllers
                             return View(kund);
                         }
                     }
+
+                    db.Kund.Add(kund);
+                    db.SaveChanges();
+                    var searchTemp = from sc in db.Kund select sc;
+
+                    var kundTemp = searchTemp.Where(f => f.Förnamn.Equals(kund.Förnamn) && f.Efternamn.Equals(kund.Efternamn) && f.Postadress.Equals(kund.Postadress) && f.PostNr.Equals(kund.PostNr) && f.Epost.Equals(kund.Epost) && f.Ort.Equals(kund.Ort));
+                    var kundanother = kundTemp.Single();
+                    db.Order.Add(order);
+                    db.SaveChanges();
+
                     cart.CreateOrder(order);
                     ViewData["OrderID"] = order.OrderId;
 

@@ -84,4 +84,33 @@
             @Model.CartTotal
         </td>
     </tr>
+    @foreach (var item in Model.CartItems)
+    {
+        <tr id="row-@item.CartID">
+            <td>
+                @Html.ActionLink(item.Artikel.ArtikelNamn, "Details", "Artikel", new { id = item.ArtikelID }, null)
+            </td>
+        </tr>
+    }
+</table>
+
+<h3>
+    Andra Användare har också beställt:
+</h3>
+
+<table>
+    <tr>
+        <th>
+            Produkt namn:
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.RecommendedItems)
+    {
+        <tr id="row-@item.ArtikelID">
+            <td>
+                @Html.ActionLink(item.ArtikelNamn, "Details", "Artikel", new { id = item.ArtikelID }, null)
+            </td>
+        </tr>
+    }
 </table>
