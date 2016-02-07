@@ -84,14 +84,6 @@
             @Model.CartTotal
         </td>
     </tr>
-    @foreach (var item in Model.CartItems)
-    {
-        <tr id="row-@item.CartID">
-            <td>
-                @Html.ActionLink(item.Artikel.ArtikelNamn, "Details", "Artikel", new { id = item.ArtikelID }, null)
-            </td>
-        </tr>
-    }
 </table>
 
 <h3>
