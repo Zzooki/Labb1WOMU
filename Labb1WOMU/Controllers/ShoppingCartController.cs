@@ -17,6 +17,11 @@ namespace Labb1WOMU.Controllers
         private DBTEntities1 db = new DBTEntities1();
 
         // GET: Cart
+        /// <summary>
+        /// Denna metod skapar index viewen för varukorgen.
+        /// </summary>
+        /// <returns></returns>
+        /// Returnerar en view för varukorgens index.
         public ActionResult Index()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);
@@ -31,7 +36,14 @@ namespace Labb1WOMU.Controllers
 
             return View(viewModel);
         }
-
+        /// <summary>
+        /// Denna metod skapar en lista med rekommenderade artiklar baserat på vad andra användare har köpt i samband
+        /// med de artiklar som finns i den aktuella varukorgen.
+        /// </summary>
+        /// <param name="cart"></param>
+        /// Den aktuella varukorgen.
+        /// <returns></returns>
+        /// En lista med rekommenderade artiklar.
         public List<Artikel> GetRecommendedItems(ShoppingCart cart)
         {
             List<Artikel> recommendedItems = new List<Artikel>();
@@ -51,6 +63,13 @@ namespace Labb1WOMU.Controllers
         }
 
         // GET: Cart/Details/5
+        /// <summary>
+        /// Skapar den detaljerade viewen för varukorgen.
+        /// </summary>
+        /// <param name="id"></param>
+        /// Varukorgens id accepterar null ifall det inte skulle finnas en varukorg.
+        /// <returns></returns>
+        /// Returnerar viewen för varukorgens detail sida.
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -66,6 +85,11 @@ namespace Labb1WOMU.Controllers
         }
 
         // GET: Cart/Create
+        /// <summary>
+        /// Denna metod skapar en varukorg.
+        /// </summary>
+        /// <returns></returns>
+        /// Returnerar varukorgen som skapades.
         public ActionResult Create()
         {
             ViewBag.ArtikelID = new SelectList(db.Artikel, "ArtikelID", "ArtikelNamn");
@@ -94,6 +118,14 @@ namespace Labb1WOMU.Controllers
         }
 
         // GET: Cart/Edit/5
+        /// <summary>
+        /// Denna metod skapar en view för att kunna ändra i en kundvagn.
+        /// </summary>
+        /// <param name="id"></param>
+        /// Kundvagnens id, accepterar null ifall att det inte skulle finnas en instans av varukorgen i den
+        /// aktuelle sessionen.
+        /// <returns></returns>
+        /// Returnerar viewen för att ändra i varukorgen.
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -141,6 +173,15 @@ namespace Labb1WOMU.Controllers
             return View(cart);
         }
 
+        /// <summary>
+        /// Denna metod används för att ta bort artiklar från kundvagnen, om det finns mer än en av en artikel i
+        /// kundvagnen så blir antalet = antalet - 1, och om det bara finns en av en artikel så tas den bort
+        /// helt från varukorgen.
+        /// </summary>
+        /// <param name="id"></param>
+        /// Varukorgens id.
+        /// <returns></returns>
+        /// Returnerar den uppdaterade varukorgen i Json format.
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
@@ -181,6 +222,14 @@ namespace Labb1WOMU.Controllers
             }
             base.Dispose(disposing);
         }
+        /// <summary>
+        /// Denna metod används för att lägga till artiklar i varukorgen, om artikeln redan finns i varukorgen
+        /// plussas antalet på med ett, annars läggs artikeln till i varukorgen med antal 1.
+        /// </summary>
+        /// <param name="id"></param>
+        /// Varukorgens id.
+        /// <returns></returns>
+        /// Returnerar index metoden som då visar den uppdaterade varukorgen.
         public ActionResult AddToCart(int id)
         {
             var produkt = db.Artikel.Single(
@@ -192,6 +241,13 @@ namespace Labb1WOMU.Controllers
 
             return RedirectToAction("Index");
         }
+
+        /// <summary>
+        /// Denna metod visar en summering av varukorgen som innehåller de artiklar som finns i varukorgen,
+        /// och hur mycket hela varukorgen skulle kosta.
+        /// </summary>
+        /// <returns></returns>
+        /// Returnerar summering som en partiell vy som sedan visas som en tabell på samtliga sidor.
         [ChildActionOnly]
         public ActionResult CartSummary()
         {

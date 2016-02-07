@@ -18,12 +18,24 @@ namespace Labb1WOMU.Controllers
         private DBTEntities1 db = new DBTEntities1();
 
         // GET: Kund
+        /// <summary>
+        /// Denna metod skapar en vy med samtliga kunder i databasen.
+        /// </summary>
+        /// <returns></returns>
+        /// Returnerar vyn med samtliga kunder.
         public ActionResult Index()
         {
             return View(db.Kund.ToList());
         }
 
         // GET: Kund/Details/5
+        /// <summary>
+        /// Denna metod skapar en detaljerad vy för en kund.
+        /// </summary>
+        /// <param name="id"></param>
+        /// Idt hos kunden som en detaljerad vy skall skapas för.
+        /// <returns></returns>
+        /// Returnerar den detaljerade vyn för den aktuella kunden.
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -47,16 +59,20 @@ namespace Labb1WOMU.Controllers
         // POST: Kund/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Denna metod skapar en kund utifrån data som kommer ifrån ett formulär som finns på sidan och används när en
+        /// order skall slutföras.
+        /// </summary>
+        /// <param name="kund"></param>
+        /// Informationen från webbformuläret används för att skapa ett kund objekt, som sedan valideras och sparas i databasen.
+        /// <returns></returns>
+        /// Returnerar en vy som visar relevant information.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
         {
             if (!isOnlyLetters(kund.Förnamn) || !isOnlyLetters(kund.Efternamn))
             {
-                //var namnView = new KundCreateViewModel()
-                //{
-                //    Message = "Förnamn/Efternamn får endast innehålla bökstäver!"
-                //};
                 return PartialView("KundCreateView", kund);
             }
 
@@ -98,7 +114,7 @@ namespace Labb1WOMU.Controllers
                 db.Order.Add(order);
                 db.SaveChanges();
 
-                    cart.CreateOrder(order);
+                cart.CreateOrder(order);
                 ViewData["OrderID"] = order.OrderId;
 
                     return RedirectToAction("ConfirmOrder", new { id = order.OrderId });
@@ -123,7 +139,15 @@ namespace Labb1WOMU.Controllers
                 return false;
             }
         }
-
+        /// <summary>
+        /// Denna metod används för att kolla om en sträng endast innehåller bokstäver.
+        /// </summary>
+        /// <param name="s">
+        /// Strängen som skall valideras.
+        /// </param>
+        /// <returns>
+        /// Returnerar sant om strängen endast innehåller bokstäver, och annars falskt.
+        /// </returns>
         public bool isOnlyLetters(string  s)
         {
             return Regex.IsMatch(s, @"^[a-öA-Ö]+$");
@@ -147,6 +171,16 @@ namespace Labb1WOMU.Controllers
         // POST: Kund/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Denna metod används för att ändra datan hos en kund.
+        /// </summary>
+        /// <param name="kund">
+        /// Tar in information från ett webbformulär och skapar ett kund objekt som sedan används för att skriva
+        /// över den information som skall ändras hos en kund som redan finns.
+        /// </param>
+        /// <returns>
+        /// Returnerar en vy för den kund som uppdaterats.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
@@ -161,6 +195,15 @@ namespace Labb1WOMU.Controllers
         }
 
         // GET: Kund/Delete/5
+        /// <summary>
+        /// Denna metod används för att ta bort en kund som finns i databasen.
+        /// </summary>
+        /// <param name="id">
+        /// Idt hos kunden som skall tas bort.
+        /// </param>
+        /// <returns>
+        /// Returnerar en vy som visar kunden
+        /// </returns>
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -176,6 +219,15 @@ namespace Labb1WOMU.Controllers
         }
 
         // POST: Kund/Delete/5
+        /// <summary>
+        /// Denna metod används för att validera borttagandet av en kund.
+        /// </summary>
+        /// <param name="id">
+        /// Idt hos kunden som skall tas bort.
+        /// </param>
+        /// <returns>
+        /// Returnerar kundcontroller index metoden som returnerar vyn för samtliga kunder.
+        /// </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -194,6 +246,15 @@ namespace Labb1WOMU.Controllers
             }
             base.Dispose(disposing);
         }
+        /// <summary>
+        /// Denna metod används för att validera en order innan den slutförs.
+        /// </summary>
+        /// <param name="id">
+        /// Ordern som skall valideras id.
+        /// </param>
+        /// <returns>
+        /// Returnerar en vy som antingen visar att orden har slutförts eller ett felmeddelande.
+        /// </returns>
         public ActionResult ConfirmOrder(int id)
         {
             bool isValid = db.Order.Any(
