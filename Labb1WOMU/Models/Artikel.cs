@@ -11,7 +11,10 @@ namespace Labb1WOMU.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klassen som motsvarar den information som vi lagrar ang. produkterna i databasen
+    /// </summary>
     public partial class Artikel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

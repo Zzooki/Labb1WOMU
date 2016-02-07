@@ -12,6 +12,9 @@ namespace Labb1WOMU.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    /// <summary>
+    /// Klassen som motsvarar den information ang. orderrad som vi sparar i databasen
+    /// </summary>
     public partial class Orderrad
     {
         public int OrderradID { get; set; }

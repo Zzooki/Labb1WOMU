@@ -11,7 +11,9 @@ namespace Labb1WOMU.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    /// <summary>
+    /// Klassen som motsvarar den information som vi lagrar ang. varukorgen i databasen
+    /// </summary>
     public partial class Cart
     {
         public int CartID { get; set; }
