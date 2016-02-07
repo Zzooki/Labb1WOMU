@@ -75,7 +75,15 @@
         </tr>
     </table>
     <p class="button">
+    @if(Model.CartItems.Count == 0)
+    {
+        <span>Checkout >></span>
+    }
+    else
+    {
         @Html.ActionLink("Checkout >> ", "Create", "Kund")
+    }
+    
     </p>
 
 </div>
