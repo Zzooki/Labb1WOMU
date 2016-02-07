@@ -17,39 +17,6 @@ namespace Labb1WOMU.Controllers
     {
         private DBTEntities1 db = new DBTEntities1();
 
-        // GET: Kund
-        /// <summary>
-        /// Denna metod skapar en vy med samtliga kunder i databasen.
-        /// </summary>
-        /// <returns></returns>
-        /// Returnerar vyn med samtliga kunder.
-        public ActionResult Index()
-        {
-            return View(db.Kund.ToList());
-        }
-
-        // GET: Kund/Details/5
-        /// <summary>
-        /// Denna metod skapar en detaljerad vy för en kund.
-        /// </summary>
-        /// <param name="id"></param>
-        /// Idt hos kunden som en detaljerad vy skall skapas för.
-        /// <returns></returns>
-        /// Returnerar den detaljerade vyn för den aktuella kunden.
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Kund kund = db.Kund.Find(id);
-            if (kund == null)
-            {
-                return HttpNotFound();
-            }
-            return View(kund);
-        }
-
         // GET: Kund/Create
         public ActionResult Create()
         {
@@ -127,7 +94,12 @@ namespace Labb1WOMU.Controllers
             return View(kund);
             }
 
-            bool IsValidEmail(string email)
+        /// <summary>
+        /// Denna metoden ansvarar för att kontrollera så att kunden har angett en valid e-postadress
+        /// </summary>
+        /// <param name="email"> tar in en sträng som motsvarar kundens e-postadress</param>
+        /// <returns>returnerar sant eller falskt om kunden har angett en e-postadress som motsvarar det format som krävs utav databasen</returns>
+        bool IsValidEmail(string email)
         {
             try
             {
