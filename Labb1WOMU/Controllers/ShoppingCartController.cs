@@ -41,7 +41,10 @@ namespace Labb1WOMU.Controllers
             {
                 foreach (var order in orders)
                 {
-                    recommendedItems.Add(db.Artikel.Find((item.ArtikelID == order.ArtikelID)));
+                    if (item.ArtikelID != order.ArtikelID)
+                    {
+                        recommendedItems.Add(db.Artikel.Find((order.ArtikelID)));
+                    }
                 }
             }
             return recommendedItems;
