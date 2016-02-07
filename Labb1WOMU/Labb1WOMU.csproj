@@ -309,7 +309,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Kund\Create.cshtml" />
-    <Content Include="Views\Kund\Index.cshtml" />
     <Content Include="Views\Artikel\Details.cshtml" />
     <Content Include="Views\Artikel\Index.cshtml" />
     <Content Include="Views\Kund\ConfirmOrder.cshtml" />

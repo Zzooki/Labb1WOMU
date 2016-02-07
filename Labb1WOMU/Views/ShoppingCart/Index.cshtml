@@ -3,19 +3,18 @@
     ViewBag.Title = "Shopping Cart";
 }
 
+@*Java script för att ladda om sidan när man tar bort items i varukorgen*@
 <script src="~/Scripts/jquery-2.2.0.min.js"></script>
 <script type="text/javascript">
     $(function () {
-        // Document.ready -> link up remove event handler
+        
         $(".RemoveLink").click(function () {
-            // Get the id from the link
+            // id som ska tas bort från varukorgen
             var recordToDelete = $(this).attr("data-id");
             if (recordToDelete != '') {
-                // Perform the ajax post
+                
                 $.post("/ShoppingCart/RemoveFromCart", { "id": recordToDelete },
                     function (data) {
-                        // Successful requests get here
-                        // Update the page elements
                         if (data.ItemCount == 0) {
                             $('#row-' + data.DeleteId).fadeOut('slow');
                         } else {
@@ -25,6 +24,7 @@
                         $('#update-message').text(data.Message);
                         $('#cart-status').text(data.CartCount);
                     });
+                //Ladda om viewn så att förändringen syns för användaren
                 window.location.reload();
             }
         });
@@ -52,6 +52,7 @@
         </th>
         <th></th>
     </tr>
+    @*Loopa igenom alla items i varukorgen för att visa de produkter som finns där för användaren*@
     @foreach (var item in Model.CartItems)
     {
         <tr id="row-@item.CartID">
@@ -97,6 +98,7 @@
         </th>
         <th></th>
     </tr>
+    @*Loopa igenom de produkter som finns i listan för rekommenderade items, basserat på det kunden redan har lagt i sin varukorg*@
     @foreach (var item in Model.RecommendedItems)
     {
         <tr id="row-@item.ArtikelID">
