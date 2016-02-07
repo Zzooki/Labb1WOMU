@@ -73,8 +73,21 @@ namespace Labb1WOMU.Controllers
 
             try
             {
+                var cart = ShoppingCart.GetCart(this.HttpContext);
+                var items = cart.GetCartItems();
+
             if (ModelState.IsValid)
             {
+                    foreach (var item in items)
+                    {
+                        var produkt = db.Artikel.Single(
+                        artikel => artikel.ArtikelID == item.ArtikelID);
+                        if (item.Count > produkt.Antal)
+                        {
+                            return View(kund);
+                        }
+                    }
+
                 db.Kund.Add(kund);
                 db.SaveChanges();
                 var searchTemp = from sc in db.Kund select sc;
@@ -85,17 +98,6 @@ namespace Labb1WOMU.Controllers
                 db.Order.Add(order);
                 db.SaveChanges();
 
-                var cart = ShoppingCart.GetCart(this.HttpContext);
-                    var items = cart.GetCartItems();
-                    foreach (var item in items)
-                    {
-                        var produkt = db.Artikel.Single(
-                        artikel => artikel.ArtikelID == item.ArtikelID);
-                        if (item.Count > produkt.Antal)
-                        {
-                            return View(kund);
-                        }
-                    }
                     cart.CreateOrder(order);
                 ViewData["OrderID"] = order.OrderId;
 

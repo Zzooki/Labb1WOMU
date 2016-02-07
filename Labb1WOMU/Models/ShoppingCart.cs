@@ -100,6 +100,7 @@ namespace Labb1WOMU.Models
             return db.Cart.Where(
                 cart => cart.StringCartID == ShoppingCartId).ToList();
         }
+
         public int GetCount()
         {
             // Get the count of each item in the cart and sum them up
