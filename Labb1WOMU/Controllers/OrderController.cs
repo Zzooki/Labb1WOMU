@@ -14,8 +14,16 @@ namespace Labb1WOMU.Controllers
     {
         private DBTEntities1 db = new DBTEntities1();
 
-       
         
+        /// <summary>
+        /// Denna metod används för att söka efter ordrar i databasen.
+        /// </summary>
+        /// <param name="searchValue">
+        /// Idt på den order som användaren matat in.
+        /// </param>
+        /// <returns>
+        /// returnerar en vy med den order som användaren matat in, eller en tom vy om ingen order hittats.
+        /// </returns>
         public ActionResult Search(string searchValue)
         {
      

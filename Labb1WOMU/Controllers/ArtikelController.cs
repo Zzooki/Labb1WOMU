@@ -15,12 +15,27 @@ namespace Labb1WOMU.Controllers
         private DBTEntities1 db = new DBTEntities1();
 
         // GET: Artikel
+        /// <summary>
+        /// Denna metod returnerar en view med samtliga artiklar i databasen.
+        /// </summary>
+        /// <returns>
+        /// Returnerar en vy med samtliga artiklar.
+        /// </returns>
         public ActionResult Index()
         {
             return View(db.Artikel.ToList());
         }
 
         // GET: Artikel/Details/5
+        /// <summary>
+        /// Denna metod används för att ta fram en detaljerad vy för en given artikel.
+        /// </summary>
+        /// <param name="id">
+        /// Idt för artikeln som en detaljerad vy skall visas för.
+        /// </param>
+        /// <returns>
+        /// Returnerar den detaljerade vyn för den valda produkten.
+        /// </returns>
         public ActionResult Details(int? id)
         {
             if (id == null)
