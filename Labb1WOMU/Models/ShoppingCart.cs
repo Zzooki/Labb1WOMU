@@ -127,7 +127,7 @@ namespace Labb1WOMU.Models
 
             return total ?? decimal.Zero;
         }
-        public int CreateOrder(Order order)
+        public int CreateOrder(Order order, int kundId)
         {
        
 
