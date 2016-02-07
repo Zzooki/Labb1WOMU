@@ -97,7 +97,6 @@ namespace Labb1WOMU.Controllers
                         }
                     }
                     cart.CreateOrder(order);
-                cart.CreateOrder(order, kundanother.KundID);
                 ViewData["OrderID"] = order.OrderId;
 
                     return RedirectToAction("ConfirmOrder", new { id = order.OrderId });

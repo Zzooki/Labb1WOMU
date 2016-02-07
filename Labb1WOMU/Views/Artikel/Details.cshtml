@@ -4,55 +4,53 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detaljer</h2>
 
-<div>
-    <h4>Artikel</h4>
+    <h4>Artikel:</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ArtikelNamn)
-        </dt>
+    <table class="td-limit">
+        <tr>
+            <td style="font-weight:bold">
+                @Html.DisplayNameFor(model => model.ArtikelNamn)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.ArtikelNamn)
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold">
+                @Html.DisplayNameFor(model => model.Beskrivning)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Beskrivning)
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold">
+                @Html.DisplayNameFor(model => model.Antal)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Antal)
+            </td>
+        </tr>
+        <tr>
+            <td style="font-weight:bold">
+                @Html.DisplayNameFor(model => model.Pris)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.Pris)
+            </td>
+        </tr>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.ArtikelNamn)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Beskrivning)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Beskrivning)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Antal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Antal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Pris)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Pris)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Aktuell)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Aktuell)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtikelID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Tillbaka till produkter", "Index")
 </p>

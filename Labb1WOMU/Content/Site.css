@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.td-limit {
+    max-width: 70px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
