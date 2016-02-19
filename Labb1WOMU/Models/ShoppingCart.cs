@@ -89,6 +89,10 @@ namespace Labb1WOMU.Models
         {
             var shoppingCart = db.Cart.SingleOrDefault(
                 cart => cart.StringCartID == ShoppingCartId && cart.ArtikelID == artikel.ArtikelID);
+
+            var produkt = db.Artikel.Single(
+            art => art.ArtikelID == artikel.ArtikelID);
+
             ///Om det inte finns en cart för kunden redan eller produkten inte finns vi
             if (shoppingCart == null)
             {
@@ -100,8 +104,9 @@ namespace Labb1WOMU.Models
                     Count = 1,
                     DateCreated = DateTime.Now
                 };
+
                 ///Lägger in varukorgen i databasen
-                db.Cart.Add(shoppingCart);
+                    db.Cart.Add(shoppingCart);
             }
             ///Om varukorgen finns och produkten redan finns i varukorgen så ökar vi antalet produkter 
             else
@@ -109,7 +114,10 @@ namespace Labb1WOMU.Models
                 shoppingCart.Count++;
             }
             ///Sparar ändringarna i databasen
-            db.SaveChanges();
+            if (!(shoppingCart.Count > produkt.Antal))
+            {
+                db.SaveChanges();
+            }
         }
         /// <summary>
         /// EmptyCart hanterar tömningen utav kundkorgen när kunden har handlat klart och 
