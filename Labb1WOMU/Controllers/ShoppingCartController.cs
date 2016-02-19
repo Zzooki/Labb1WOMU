@@ -251,13 +251,14 @@ namespace Labb1WOMU.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [ChildActionOnly]
         /// <summary>
         /// Denna metod visar en summering av varukorgen som innehåller de artiklar som finns i varukorgen,
         /// och hur mycket hela varukorgen skulle kosta.
         /// </summary>
         /// <returns></returns>
         /// Returnerar summering som en partiell vy som sedan visas som en tabell på samtliga sidor.
-        [ChildActionOnly]
         public ActionResult CartSummary()
         {
             var cart = ShoppingCart.GetCart(this.HttpContext);

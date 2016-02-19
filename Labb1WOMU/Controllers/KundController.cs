@@ -16,40 +16,7 @@ namespace Labb1WOMU.Controllers
     public class KundController : Controller
     {
         private DBTEntities1 db = new DBTEntities1();
-
-        // GET: Kund
-        /// <summary>
-        /// Denna metod skapar en vy med samtliga kunder i databasen.
-        /// </summary>
-        /// <returns></returns>
-        /// Returnerar vyn med samtliga kunder.
-        public ActionResult Index()
-        {
-            return View(db.Kund.ToList());
-        }
-
-        // GET: Kund/Details/5
-        /// <summary>
-        /// Denna metod skapar en detaljerad vy för en kund.
-        /// </summary>
-        /// <param name="id"></param>
-        /// Idt hos kunden som en detaljerad vy skall skapas för.
-        /// <returns></returns>
-        /// Returnerar den detaljerade vyn för den aktuella kunden.
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Kund kund = db.Kund.Find(id);
-            if (kund == null)
-            {
-                return HttpNotFound();
-            }
-            return View(kund);
-        }
-
+        
         // GET: Kund/Create
         public ActionResult Create()
         {
@@ -71,21 +38,24 @@ namespace Labb1WOMU.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "KundID,Förnamn,Efternamn,Postadress,PostNr,Epost,TelefonNr,Ort")] Kund kund)
         {
+            if (kund.error.Message == null)
+            {
+                kund.error.Message = "";
+            }
+
             if (!isOnlyLetters(kund.Förnamn) || !isOnlyLetters(kund.Efternamn))
             {
-                return PartialView("KundCreateView", kund);
+                kund.error.Message = "Ditt namn och förnamn får endast innehålla bokstäver!";
+                return View(kund);
             }
 
             if (!IsValidEmail(kund.Epost))
             {
-                var emailView = new KundCreateViewModel
-                {
-                    Message = "Epost måste vara i korrekt format: asd@domain.com"
-                };
-                return PartialView("KundCreateView", kund);
+                kund.error.Message = "Epost måste vara i korrekt format: asd@domain.com";
+                return View(kund);
             }
             var order = new Order();
-            TryUpdateModel(order);
+            TryUpdateModel(kund.error);
 
             try
             {
@@ -127,7 +97,19 @@ namespace Labb1WOMU.Controllers
             return View(kund);
             }
 
-            bool IsValidEmail(string email)
+        public ActionResult KundCreateView(Kund kund)
+        {
+            
+
+            return View(kund);
+        }
+
+        /// <summary>
+        /// Denna metoden ansvarar för att kontrollera så att kunden har angett en valid e-postadress
+        /// </summary>
+        /// <param name="email"> tar in en sträng som motsvarar kundens e-postadress</param>
+        /// <returns>returnerar sant eller falskt om kunden har angett en e-postadress som motsvarar det format som krävs utav databasen</returns>
+        bool IsValidEmail(string email)
         {
             try
             {
